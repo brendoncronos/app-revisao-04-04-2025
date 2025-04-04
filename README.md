@@ -41,6 +41,27 @@ export default function App() {
 }
 ```
 
+É utilizado **estado** no React Native para se ter o controle da variável na renderização do componente em tela
+
+```tsx
+export default function App() {
+  const [counter, setCounter] = useState(0);
+
+  const addCounter = () =>  {
+    setCounter(counter + 1);
+    console.log(`contador: ${counter}`);
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text>Contando {counter}</Text>
+      <StatusBar style="auto" />
+      <Button title="Contar" onPress={addCounter}></Button>
+    </View>
+  );
+}
+```
+
 ## Fontes
 
 - https://pt.stackoverflow.com/questions/298637/quais-as-reais-diferen%C3%A7as-em-criar-um-projeto-com-expo-e-sem-expo

@@ -1,16 +1,27 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import { Button, StyleSheet, Text, View, Image, TextInput } from 'react-native';
 
 export default function App() {
-  let counter = 0;
+  const [counter, setCounter] = useState(0);
 
-  const addCounter = () => counter++;
+  const addCounter = () =>  {
+    setCounter(counter + 1);
+    console.log(`contador: ${counter}`);
+  };
 
   return (
     <View style={styles.container}>
-      <Text>Contando {counter}</Text>
-      <StatusBar style="auto" />
-      <Button title="Contar" onPress={addCounter}></Button>
+      <View style={styles.card}>
+        <Text>Contando {counter}</Text>
+        <StatusBar style="auto" />
+        <Button title="Contar" onPress={addCounter}></Button>
+        <Image
+          source={{uri: 'https://placehold.co/150'}}
+          style={{width: 150, height: 150}}
+        />
+        {/* <TextInput onChangeText={}></TextInput> */}
+      </View>
     </View>
   );
 }
@@ -22,4 +33,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  card: {
+    gap: 16,
+    padding: 20,
+    margin: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+  }
 });
