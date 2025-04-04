@@ -1,11 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
+  let counter = 0;
+
+  const addCounter = () => counter++;
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+      <Text>Contando {counter}</Text>
       <StatusBar style="auto" />
+      <Button title="Contar" onPress={addCounter}></Button>
     </View>
   );
 }

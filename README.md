@@ -28,7 +28,18 @@ Com o bare workflow você desconecta do expo
 
 ## Como funciona o expo
 
-É utilizado componentes para montar partes do código, é utilizado JSX ou TSX
+É utilizado componentes para montar partes da interface, o componente é uma função que retorna um JSX ou TSX (com typescript)
+
+```tsx
+export default function App() {
+  return (
+    <View style={styles.container}> <!-- TSX or JSX --> 
+      <Text>Hello World!</Text>
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+```
 
 ## Fontes
 
