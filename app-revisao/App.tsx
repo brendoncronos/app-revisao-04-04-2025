@@ -4,11 +4,25 @@ import { Button, StyleSheet, Text, View, Image, TextInput } from 'react-native';
 
 export default function App() {
   const [counter, setCounter] = useState(0);
+  const [cep, setCep] = useState("");
+  const [endereco, setEndereco] = useState<any>(null);
 
   const addCounter = () =>  {
     setCounter(counter + 1);
     console.log(`contador: ${counter}`);
   };
+
+  async function buscarCep() {
+    let url = `https://viacep.com.br/ws/${cep}/json/`
+
+    let novoEndereco = await fetch(url);
+
+    console.log(novoEndereco);
+
+    const data = await novoEndereco.json();
+
+    setEndereco(data);
+  }
 
   return (
     <View style={styles.container}>
@@ -20,7 +34,19 @@ export default function App() {
           source={{uri: 'https://placehold.co/150'}}
           style={{width: 150, height: 150}}
         />
-        {/* <TextInput onChangeText={}></TextInput> */}
+        <TextInput onChangeText={setCep} value={cep} style={{borderColor: "#ccc", borderWidth: 1}}></TextInput>
+
+        <Button title="Enviar CEP" onPress={buscarCep}></Button>
+
+        {endereco && (
+          <View style={styles.card}>
+            <Text>CEP: {cep}</Text>
+            <Text>Logradouro: {endereco.logradouro ?? "Não existe"}</Text>
+            <Text>Localidade: {endereco.localidade ?? "Não existe"}</Text>
+            <Text>Região: {endereco.regiao ?? "Não existe"}</Text>
+            <Text>UF: {endereco.uf ?? "Não existe"}</Text>
+          </View>
+        )}
       </View>
     </View>
   );
