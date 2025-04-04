@@ -13,13 +13,18 @@ export default function App() {
   };
 
   async function buscarCep() {
-    let url = `https://viacep.com.br/ws/${cep}/json/`
+    const cepFormatado = cep.replace(/\D/g, '');
 
-    let novoEndereco = await fetch(url);
+    const url = `https://viacep.com.br/ws/${cepFormatado}/json/`
 
-    console.log(novoEndereco);
+    const responseEndereco = await fetch(url);
 
-    const data = await novoEndereco.json();
+    if (!responseEndereco.ok)
+      throw new Error('Erro ao buscar o CEP');
+
+    console.log(responseEndereco);
+
+    const data = await responseEndereco.json();
 
     setEndereco(data);
   }
