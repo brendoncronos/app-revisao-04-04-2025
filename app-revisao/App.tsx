@@ -1,19 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { Button, StyleSheet, Text, View, Image, TextInput } from 'react-native';
-import axios from 'axios'
+import axios from 'axios';
+
+type Endereco = {
+  cep: string;
+  logradouro: string;    
+  localidade: string;
+  uf: string;
+  estado: string;
+  regiao: string;
+}
 
 export default function App() {
   const [counter, setCounter] = useState(0);
   const [cep, setCep] = useState("");
-  const [endereco, setEndereco] = useState<any>(null);
+  const [endereco, setEndereco] = useState<Endereco|null>(null);
 
   // são hooks
   useEffect(() => {
     const url = `https://viacep.com.br/ws/09390120/json/`
 
     async function buscarCepPadrao () {
-      const enderecoResponse = await axios.get(url);
+      const enderecoResponse = await axios.get<Endereco>(url);
 
       setEndereco(enderecoResponse.data);
     }
@@ -38,7 +47,7 @@ export default function App() {
 
     console.log(responseEndereco);
 
-    const data = await responseEndereco.json();
+    const data = await responseEndereco.json() as Endereco;
 
     setEndereco(data);
   }
@@ -59,7 +68,7 @@ export default function App() {
 
         {endereco && (
           <View style={styles.card}>
-            <Text>CEP: {endereco.logradouro ?? cep}</Text>
+            <Text>CEP: {endereco.cep ?? cep}</Text>
             <Text>Logradouro: {endereco.logradouro ?? "Não existe"}</Text>
             <Text>Localidade: {endereco.localidade ?? "Não existe"}</Text>
             <Text>Região: {endereco.regiao ?? "Não existe"}</Text>
